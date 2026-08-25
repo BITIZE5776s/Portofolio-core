@@ -26,15 +26,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     qParams: { slug },
   });
 
+  if (!project?.name) {
+    return { title: "Project Not Found" };
+  }
+
   return {
     title: `${project.name} | Project`,
-    metadataBase: new URL(`https://zakaria-mirinioui.dev/projects/${project.slug}`),
+    metadataBase: new URL(`https://zakaria-mirinioui.dev/projects/${project.slug || slug}`),
     description: project.tagline,
     openGraph: {
-      images: project.coverImage
+      images: project.coverImage?.image
         ? urlFor(project.coverImage.image).width(1200).height(630).url()
         : fallbackImage,
-      url: `https://zakaria-mirinioui.dev/projects/${project.slug}`,
+      url: `https://zakaria-mirinioui.dev/projects/${project.slug || slug}`,
       title: project.name,
       description: project.tagline,
     },

@@ -69,14 +69,5 @@ export default defineType({
         ],
       },
     }),
-    defineArrayMember({
-      type: "youtube",
-    }),
-    defineArrayMember({
-      type: "customTable",
-    }),
-    defineArrayMember({
-      type: "quiz",
-    }),
   ],
 });

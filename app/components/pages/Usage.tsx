@@ -10,6 +10,8 @@ export default async function Usage() {
     tags: ["profile"],
   });
 
+  if (!profile?.usage) return null;
+
   return (
     <section className="max-w-2xl">
       <div className="mb-8">
@@ -20,7 +22,7 @@ export default async function Usage() {
         </p>
       </div>
       <PortableText
-        value={profile?.usage}
+        value={profile.usage}
         components={CustomPortableTextFavicon}
       />
     </section>

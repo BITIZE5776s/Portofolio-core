@@ -58,20 +58,24 @@ export default async function About() {
           <aside className="flex flex-col lg:justify-self-center justify-self-start gap-y-8 lg:order-1 order-none mb-12">
             <Slide delay={0.1}>
               <div className="sticky top-10">
-                {profile?.profileImage.image ? (
+                {profile?.profileImage?.image ? (
                   <Image
                     className="rounded-2xl mb-4 object-cover max-h-96 min-h-96 bg-top"
-                    src={profile?.profileImage.image}
+                    src={profile.profileImage.image}
                     width={400}
                     height={400}
                     quality={100}
-                    alt={profile?.profileImage.alt}
+                    alt={profile.profileImage.alt || profile.fullName}
                     placeholder="blur"
-                    blurDataURL={profile?.profileImage.lqip}
+                    blurDataURL={profile.profileImage.lqip}
                     priority
                   />
                 ) : (
-                  <div className="h-96 w-[400px] bg-zinc-500 mb-4"></div>
+                  <div className="h-96 w-[400px] dark:bg-zinc-800 bg-zinc-200 mb-4 rounded-2xl flex items-center justify-center">
+                    <span className="text-6xl font-bold dark:text-primary-color text-secondary-color">
+                      {profile?.fullName?.charAt(0) || "Z"}
+                    </span>
+                  </div>
                 )}
 
                 <div className="flex flex-col text-center gap-y-4">
@@ -82,16 +86,18 @@ export default async function About() {
                     >
                       View LinkedIn <BiLinkExternal className="text-base" />
                     </RefLink>
-                    <a
-                      href={`${profile?.resumeURL}?dl=${profile?.fullName}-resume.pdf`}
-                      className="flex items-center justify-center text-center dark:text-primary-color text-secondary-color hover:underline basis-[10%] dark:bg-primary-bg bg-zinc-100 border border-transparent dark:hover:border-zinc-700 hover:border-zinc-200 rounded-md py-3 text-lg"
-                      title="Download Resume"
-                    >
-                      <BiSolidDownload
-                        className="text-lg"
-                        aria-label="Download Resume"
-                      />
-                    </a>
+                    {profile?.resumeURL && (
+                      <a
+                        href={`${profile.resumeURL}?dl=${profile.fullName}-resume.pdf`}
+                        className="flex items-center justify-center text-center dark:text-primary-color text-secondary-color hover:underline basis-[10%] dark:bg-primary-bg bg-zinc-100 border border-transparent dark:hover:border-zinc-700 hover:border-zinc-200 rounded-md py-3 text-lg"
+                        title="Download Resume"
+                      >
+                        <BiSolidDownload
+                          className="text-lg"
+                          aria-label="Download Resume"
+                        />
+                      </a>
+                    )}
                   </div>
 
                   <a
